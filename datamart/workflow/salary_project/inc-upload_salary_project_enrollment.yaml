@@ -1,0 +1,44 @@
+entities:
+  - 935122145
+
+param:
+  sql.file: >-
+    hdfs:///oozie-app/b2c_infra/${inventory.__DATAMART_NAME__}/wf/ddl/pa/custom_b2c_enrollment_and_collection_stg.t_fct_salary_project_enrollment_inc.sql;
+    hdfs:///oozie-app/b2c_infra/${inventory.__DATAMART_NAME__}/wf/ddl/pa/custom_b2c_enrollment_and_collection_stg.t_fct_salary_project_enrollment_snp_inc.sql;
+    hdfs:///oozie-app/b2c_infra/${inventory.__DATAMART_NAME__}/wf/service/upload-inc_data.sql;
+
+  app.ctl.entity: 935122145
+  app.stg.schema.name: custom_b2c_enrollment_and_collection_stg
+  app.stg.table.name: t_fct_salary_project_enrollment_inc
+  app.stg.table.sql: >-
+      custom_b2c_enrollment_and_collection_stg.t_fct_salary_project_enrollment_inc_pprbotp.sql;
+      custom_b2c_enrollment_and_collection_stg.t_fct_salary_project_enrollment_inc_rzbr.sql;
+      custom_b2c_enrollment_and_collection_stg.t_fct_salary_project_enrollment_inc_rzzz.sql;
+  app.stg.snp.inc.table.name: t_fct_salary_project_enrollment_snp_inc
+  app.stg.snp.inc.sql: >-
+      custom_b2c_enrollment_and_collection_stg.t_fct_salary_project_enrollment_snp_inc.sql;
+  app.target.schema.name: custom_b2c_enrollment_and_collection
+  app.target.table.name: t_fct_salary_project_enrollment
+  app.target.date.from: ""
+  app.target.date.to: ""
+  app.stat.sql: "/service/inc-t_fct_salary_project_enrollment-statistics.sql"
+
+# Параметры автозапуска по расписанию
+trigger: cron(0 5 * * *).restart_on_fail
+
+faultTolerance:
+  numAttempts: 3
+  retryDelayMs: 600000
+  abortOnFailure: false
+  descheduleOnFailure: false
+
+#сущность.тип_блокировки.профиль
+#сущность.тип_блокировки.профиль.оценка_времени(мин), например - 935122144.write.${inventory.ctl_profile}.25
+lock:
+  init:
+    check:
+      - 935122145.read.${inventory.ctl_profile}
+      - 935122145.write.${inventory.ctl_profile}
+    set:
+      - 935122145.read.${inventory.ctl_profile}
+      - 935122145.write.${inventory.ctl_profile}

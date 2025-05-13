@@ -1,0 +1,69 @@
+{
+  "appConfig": {
+    "stages": {
+      "CustomScriptStage": {
+        "enabled": "false"
+      },
+      "PreStage": {
+        "enabled": "true"
+      },
+      "backUp": {
+        "enabled": "false"
+      },
+      "coalesceFiles": {
+        "enabled": "false"
+      },
+      "dataQualityCheck": {
+        "enabled": "false"
+      },
+      "getIncrement": {
+        "enabled": "false"
+      },
+      "historisity": {
+        "enabled": "false"
+      },
+      "moveTable": {
+        "enabled": "false"
+      },
+      "rollBack": {
+        "enabled": "false"
+      }
+    }
+  },
+  "treadConfigs": [
+    {
+      "name": "drop_create-agreement_x_type_inc_tbl",
+      "stages": [
+        {
+          "config": {
+            "filePath": "hdfs:///oozie-app/b2c_infra/custom_b2c_salary_project/wf/ddl/pa/custom_b2c_enrollment_and_collection_stg.t_link_agreement_x_type_inc.sql"
+          },
+          "enabled": "true",
+          "name": "PreStage"
+        }
+      ]
+    },
+    {
+      "name": "upload_agreement_x_type",
+      "stages": [
+        {
+          "config": {
+            "filePath": "hdfs:///oozie-app/b2c_infra/custom_b2c_salary_project/wf/service/upload-init_data.sql"
+          },
+          "enabled": "true",
+          "name": "PreStage"
+        }
+      ]
+    }
+  ],
+  "treadRelations": [
+    {
+      "from": "",
+      "to":   "drop_create-agreement_x_type_inc_tbl"
+    },
+    {
+      "from": "drop_create-agreement_x_type_inc_tbl",
+      "to":   "upload_agreement_x_type"
+    }
+  ]
+}

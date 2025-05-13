@@ -1,0 +1,34 @@
+entities:
+  - 935122144
+
+param:
+  ru.sber.sql.pipelines.config.path : >-
+    hdfs:///oozie-app/b2c_infra/${inventory.__DATAMART_NAME__}/etl/conf/init-upload_enrollment_type.json
+
+  app.ctl.entity: 935122144
+  app.stg.schema.name: custom_b2c_enrollment_and_collection_stg
+  app.stg.table.name: t_dim_enrollment_type_inc
+  app.stg.table.sql: custom_b2c_enrollment_and_collection_stg.t_dim_enrollment_type_inc.sql
+  app.target.schema.name: custom_b2c_enrollment_and_collection
+  app.target.table.name: t_dim_enrollment_type
+  app.target.date.from: ""
+  app.target.date.to: ""
+  app.ddl.target.table.sql: "ddl/pa/t_dim_enrollment_type.sql"
+
+faultTolerance:
+  numAttempts: 3
+  retryDelayMs: 600000
+  abortOnFailure: false
+  descheduleOnFailure: false
+
+#сущность.тип_блокировки.профиль
+#сущность.тип_блокировки.профиль.оценка_времени(мин), например - 935122144.write.${inventory.ctl_profile}.25
+lock:
+  init:
+    check:
+      - 935122144.read.${inventory.ctl_profile}
+      - 935122144.write.${inventory.ctl_profile}
+    set:
+      - 935122144.read.${inventory.ctl_profile}
+      - 935122144.write.${inventory.ctl_profile}
+

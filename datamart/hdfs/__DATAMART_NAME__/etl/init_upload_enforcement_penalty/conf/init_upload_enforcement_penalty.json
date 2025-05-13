@@ -1,0 +1,357 @@
+{
+  "appConfig": {
+    "stages": {
+      "CustomScriptStage": {
+        "enabled": "false"
+      },
+      "PreStage": {
+        "enabled": "true"
+      },
+      "backUp": {
+        "enabled": "false"
+      },
+      "coalesceFiles": {
+        "enabled": "false"
+      },
+      "dataQualityCheck": {
+        "enabled": "true"
+      },
+      "getIncrement": {
+        "enabled": "false"
+      },
+      "historisity": {
+        "enabled": "false"
+      },
+      "moveTable": {
+        "enabled": "false"
+      },
+      "rollBack": {
+        "enabled": "false"
+      }
+    }
+  },
+  "treadConfigs": [
+    {
+      "name": "init_upload_dml",
+      "stages": [
+        {
+          "config": {},
+          "enabled": "false",
+          "name": "rollBack"
+        },
+        {
+          "config": {
+            "attrConfTable": "custom_blago_grenki.source_attrs",
+            "bcSizeLimit": "3244662",
+            "cdcSchemaHist": "custom_blago_grenki_hist",
+            "cdcSchemaSnp": "custom_blago_grenki_aux",
+            "createTableSettingsScript": "/tmp/script.sql",
+            "dmName": "dmName",
+            "loadingType": "inc",
+            "minLoadingId": "-1",
+            "minVfrom": "1900-01-01",
+            "parallelDegree": "5",
+            "settingsExtTable": "None",
+            "settingsMartTable": "None",
+            "settingsReplTable": "None",
+            "settingsTable": "custom_blago_grenki.settings",
+            "sparkEngineParams": {},
+            "srcSchemaHist": "custom_blago_grenki_stg",
+            "srcSchemaSnp": "custom_blago_grenki_ini",
+            "statsTable": "statsTable",
+            "typeArcVal": "arc"
+          },
+          "enabled": "false",
+          "name": "getIncrement"
+        },
+        {
+          "config": {
+            "filePath": "hdfs:///oozie-app/b2c_infra/custom_b2c_salary_project/etl/init_upload_enforcement_penalty/threads/init_upload_dml/init_upload_dml.sql"
+          },
+          "enabled": "true",
+          "name": "CustomScriptStage"
+        },
+        {
+          "config": {
+            "DqJsonPath": "hdfs:///oozie-app/b2c_infra/custom_b2c_salary_project/etl/init_upload_enforcement_penalty/threads/init_upload_dml/init_upload_dml.json"
+          },
+          "enabled": "false",
+          "name": "dataQualityCheck"
+        },
+        {
+          "config": {
+            "businessKeys": "",
+            "customTargetHist": "",
+            "customTargetSnp": "",
+            "deletedFlagColumn": "",
+            "hashColumns": "",
+            "historyColumns": "",
+            "loadingMode": "",
+            "snpFilter": "",
+            "sourceQuery": "",
+            "sourceTable": "",
+            "sparkEngineParams": {},
+            "targetHashColName": "",
+            "targetName": ""
+          },
+          "enabled": "false",
+          "name": "historisity"
+        },
+        {
+          "config": {
+            "compressionType": "snappy",
+            "hdfsPaths": "/data/custom/b2c/salary_project/aux/t_fct_enforcement_penalty_inc",
+            "hdfsWorkPath": "/data/custom/b2c/salary_project/stg/inc_buffer_11",
+            "minFileSizeMB": 256,
+            "parallelDegree": "4",
+            "sparkEngineParams": {
+              "sber.sql.engine.spark.cmd": "${spark_submit_cmd_main} ${spark_submit_cmd_mid}"
+            }
+          },
+          "enabled": "false",
+          "name": "coalesceFiles"
+        },
+        {
+          "config": {
+            "sparkEngineParams": {}
+          },
+          "enabled": "false",
+          "name": "backUp"
+        },
+        {
+          "config": {
+            "compressionType": "compressionType",
+            "instanceFilter": "instanceFilter",
+            "s2tTableList": "s2tTableList",
+            "sparkEngineParams": {},
+            "srcSchema": "srcSchema",
+            "tgtSchema": "tgtSchema",
+            "truncateFilterList": "truncateFilterList",
+            "truncateStgFromPa": false,
+            "workMode": "workMode"
+          },
+          "enabled": "false",
+          "name": "moveTable"
+        }
+      ]
+    },
+    {
+      "name": "init_upload_stats_pub",
+      "stages": [
+        {
+          "config": {},
+          "enabled": "false",
+          "name": "rollBack"
+        },
+        {
+          "config": {
+            "attrConfTable": "custom_blago_grenki.source_attrs",
+            "bcSizeLimit": "3244662",
+            "cdcSchemaHist": "custom_blago_grenki_hist",
+            "cdcSchemaSnp": "custom_blago_grenki_aux",
+            "createTableSettingsScript": "/tmp/script.sql",
+            "dmName": "dmName",
+            "loadingType": "inc",
+            "minLoadingId": "-1",
+            "minVfrom": "1900-01-01",
+            "parallelDegree": "5",
+            "settingsExtTable": "None",
+            "settingsMartTable": "None",
+            "settingsReplTable": "None",
+            "settingsTable": "custom_blago_grenki.settings",
+            "sparkEngineParams": {},
+            "srcSchemaHist": "custom_blago_grenki_stg",
+            "srcSchemaSnp": "custom_blago_grenki_ini",
+            "statsTable": "statsTable",
+            "typeArcVal": "arc"
+          },
+          "enabled": "false",
+          "name": "getIncrement"
+        },
+        {
+          "config": {
+            "filePath": "hdfs:///oozie-app/b2c_infra/custom_b2c_salary_project/etl/init_upload_enforcement_penalty/threads/init_upload_stats_pub/init_upload_stats_pub.sql"
+          },
+          "enabled": "true",
+          "name": "CustomScriptStage"
+        },
+        {
+          "config": {
+            "DqJsonPath": "hdfs:///oozie-app/b2c_infra/custom_b2c_salary_project/etl/init_upload_enforcement_penalty/threads/init_upload_stats_pub/init_upload_stats_pub.json"
+          },
+          "enabled": "false",
+          "name": "dataQualityCheck"
+        },
+        {
+          "config": {
+            "businessKeys": "",
+            "customTargetHist": "",
+            "customTargetSnp": "",
+            "deletedFlagColumn": "",
+            "hashColumns": "",
+            "historyColumns": "",
+            "loadingMode": "",
+            "snpFilter": "",
+            "sourceQuery": "",
+            "sourceTable": "",
+            "sparkEngineParams": {},
+            "targetHashColName": "",
+            "targetName": ""
+          },
+          "enabled": "false",
+          "name": "historisity"
+        },
+        {
+          "config": {
+            "compressionType": "snappy",
+            "hdfsPaths": "/data/custom/blago/grenki/pa/table",
+            "hdfsWorkPath": "/data/custom/blago/grenki/pa/comp/table",
+            "minFileSizeMB": 128,
+            "parallelDegree": "1",
+            "sparkEngineParams": {}
+          },
+          "enabled": "false",
+          "name": "coalesceFiles"
+        },
+        {
+          "config": {
+            "sparkEngineParams": {}
+          },
+          "enabled": "false",
+          "name": "backUp"
+        },
+        {
+          "config": {
+            "compressionType": "compressionType",
+            "instanceFilter": "instanceFilter",
+            "s2tTableList": "s2tTableList",
+            "sparkEngineParams": {},
+            "srcSchema": "srcSchema",
+            "tgtSchema": "tgtSchema",
+            "truncateFilterList": "truncateFilterList",
+            "truncateStgFromPa": false,
+            "workMode": "workMode"
+          },
+          "enabled": "false",
+          "name": "moveTable"
+        }
+      ]
+    },
+    {
+      "name": "init_upload_pre_stage",
+      "stages": [
+        {
+          "config": {},
+          "enabled": "false",
+          "name": "rollBack"
+        },
+        {
+          "config": {
+            "attrConfTable": "custom_blago_grenki.source_attrs",
+            "bcSizeLimit": "3244662",
+            "cdcSchemaHist": "custom_blago_grenki_hist",
+            "cdcSchemaSnp": "custom_blago_grenki_aux",
+            "createTableSettingsScript": "/tmp/script.sql",
+            "dmName": "dmName",
+            "loadingType": "inc",
+            "minLoadingId": "-1",
+            "minVfrom": "1900-01-01",
+            "parallelDegree": "5",
+            "settingsExtTable": "None",
+            "settingsMartTable": "None",
+            "settingsReplTable": "None",
+            "settingsTable": "custom_blago_grenki.settings",
+            "sparkEngineParams": {},
+            "srcSchemaHist": "custom_blago_grenki_stg",
+            "srcSchemaSnp": "custom_blago_grenki_ini",
+            "statsTable": "statsTable",
+            "typeArcVal": "arc"
+          },
+          "enabled": "false",
+          "name": "getIncrement"
+        },
+        {
+          "config": {
+            "filePath": "hdfs:///oozie-app/b2c_infra/custom_b2c_salary_project/etl/init_upload_enforcement_penalty/threads/init_upload_pre_stage/init_upload_pre_stage.sql"
+          },
+          "enabled": "true",
+          "name": "CustomScriptStage"
+        },
+        {
+          "config": {
+            "DqJsonPath": "hdfs:///oozie-app/b2c_infra/custom_b2c_salary_project/etl/init_upload_enforcement_penalty/threads/init_upload_pre_stage/init_upload_pre_stage.json"
+          },
+          "enabled": "false",
+          "name": "dataQualityCheck"
+        },
+        {
+          "config": {
+            "businessKeys": "",
+            "customTargetHist": "",
+            "customTargetSnp": "",
+            "deletedFlagColumn": "",
+            "hashColumns": "",
+            "historyColumns": "",
+            "loadingMode": "",
+            "snpFilter": "",
+            "sourceQuery": "",
+            "sourceTable": "",
+            "sparkEngineParams": {},
+            "targetHashColName": "",
+            "targetName": ""
+          },
+          "enabled": "false",
+          "name": "historisity"
+        },
+        {
+          "config": {
+            "compressionType": "snappy",
+            "hdfsPaths": "/data/custom/blago/grenki/pa/table",
+            "hdfsWorkPath": "/data/custom/blago/grenki/pa/comp/table",
+            "minFileSizeMB": 128,
+            "parallelDegree": "1",
+            "sparkEngineParams": {}
+          },
+          "enabled": "false",
+          "name": "coalesceFiles"
+        },
+        {
+          "config": {
+            "sparkEngineParams": {}
+          },
+          "enabled": "false",
+          "name": "backUp"
+        },
+        {
+          "config": {
+            "compressionType": "compressionType",
+            "instanceFilter": "instanceFilter",
+            "s2tTableList": "s2tTableList",
+            "sparkEngineParams": {},
+            "srcSchema": "srcSchema",
+            "tgtSchema": "tgtSchema",
+            "truncateFilterList": "truncateFilterList",
+            "truncateStgFromPa": false,
+            "workMode": "workMode"
+          },
+          "enabled": "false",
+          "name": "moveTable"
+        }
+      ]
+    }
+  ],
+  "treadRelations": [
+    {
+      "from": "",
+      "to": "init_upload_stats_pub"
+    },
+    {
+      "from": "init_upload_pre_stage",
+      "to": "init_upload_dml"
+    },
+    {
+      "from": "init_upload_dml",
+      "to": "init_upload_stats_pub"
+    }
+  ]
+}

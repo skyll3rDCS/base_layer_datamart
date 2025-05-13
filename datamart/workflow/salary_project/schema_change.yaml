@@ -1,0 +1,35 @@
+entities:
+  - 935122142
+  - 935122143
+  - 935122144
+  - 935122145
+
+param:
+  sql.file: >-
+    hdfs:///oozie-app/b2c_infra/${inventory.__DATAMART_NAME__}/wf/ddl/pa/custom_b2c_enrollment_and_collection_stg.t_link_agreement_x_type_inc.sql;
+    hdfs:///oozie-app/b2c_infra/${inventory.__DATAMART_NAME__}/wf/ddl/pa/custom_b2c_enrollment_and_collection_stg.t_link_agreement_x_type_snp_inc.sql;
+    hdfs:///oozie-app/b2c_infra/${inventory.__DATAMART_NAME__}/wf/ddl/pa/t_link_agreement_x_type.sql;
+    hdfs:///oozie-app/b2c_infra/${inventory.__DATAMART_NAME__}/wf/ddl/pa/custom_b2c_enrollment_and_collection_stg.t_dim_enrollment_type_inc.sql;
+    hdfs:///oozie-app/b2c_infra/${inventory.__DATAMART_NAME__}/wf/ddl/pa/custom_b2c_enrollment_and_collection_stg.t_dim_enrollment_type_snp_inc.sql; 
+    hdfs:///oozie-app/b2c_infra/${inventory.__DATAMART_NAME__}/wf/ddl/pa/t_dim_enrollment_type.sql;
+    hdfs:///oozie-app/b2c_infra/${inventory.__DATAMART_NAME__}/wf/ddl/pa/custom_b2c_enrollment_and_collection_stg.t_dim_salary_project_agreement_inc.sql; 
+    hdfs:///oozie-app/b2c_infra/${inventory.__DATAMART_NAME__}/wf/ddl/pa/custom_b2c_enrollment_and_collection_stg.t_dim_salary_project_agreement_snp_inc.sql;
+    hdfs:///oozie-app/b2c_infra/${inventory.__DATAMART_NAME__}/wf/ddl/pa/t_dim_salary_project_agreement.sql;
+    hdfs:///oozie-app/b2c_infra/${inventory.__DATAMART_NAME__}/wf/ddl/pa/custom_b2c_enrollment_and_collection_stg.t_fct_salary_project_enrollment_inc.sql;
+    hdfs:///oozie-app/b2c_infra/${inventory.__DATAMART_NAME__}/wf/ddl/pa/custom_b2c_enrollment_and_collection_stg.t_fct_salary_project_enrollment_snp_inc.sql; 
+    hdfs:///oozie-app/b2c_infra/${inventory.__DATAMART_NAME__}/wf/ddl/pa/t_fct_salary_project_enrollment.sql;
+    hdfs:///oozie-app/b2c_infra/${inventory.__DATAMART_NAME__}/wf/service/schema_change_stats.sql;
+
+  sber.sql.engine.spark.cmd: ${spark_submit_cmd_main} ${spark_submit_cmd_low}
+
+# Блокировки потока, ниже краткое описание, как формировать описания блокировок
+#сущность.тип_блокировки.профиль
+#сущность.тип_блокировки.профиль.оценка_времени(мин), например - 935122144.write.${inventory.ctl_profile}.25
+lock:
+  init:
+    check:
+      - 935122145.read.${inventory.ctl_profile}
+      - 935122145.write.${inventory.ctl_profile}
+    set:
+      - 935122145.read.${inventory.ctl_profile}
+      - 935122145.write.${inventory.ctl_profile}
